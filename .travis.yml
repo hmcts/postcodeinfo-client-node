@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+- node
+script:
+- yarn build
+- yarn lint
+- yarn coverage
+deploy:
+  provider: npm
+  email: jenkins-reform@hmcts.net
+  skip_cleanup: true
+  api_key:
+    secure: H9bEUeMaOUHycFoUvq4BL6/DzWbNQ+zrJagR61+9hKp0+9KVTkNCav+XVd4E2xWx5v4m1tqBnJcgLnvo3bhp7DHKIcdwE5UqU9oRtGX8BOaYmQh09GdYpVqJSphIICDGj/vjU3CuGPxG5EL8roTtyNfr5LvY1I+YBADrdv8YVOmhQt1hTjNnQVpSERTTN58oRW11/HDt2ojlsf2avk6DXvXLuSRfObeoYw05tzv22X9sRtQEXsnOLawfk2pbwfW2mC89SBpzHoVnOYA6lKWRkpLFKy367PadzI9Z0h8kmuigPBRkD2qo7/gpHk1xxLaU/JjWmq/pVte+Ni4e43wtq2r6kceWmiwqMZHdcLQQW1KJdVg3Ui8BrHRBhihgt6nZzZG5qIt9nwQrt/u9DUDSCY+F8ebQiyBtbZwRE+1uNJg+ym29HLhfuBJ/o56+YaSJaWzLJmrVXk+fChYmvHT8Z5eijYtPVb35QQWJTAZ20jx/P4co21nxtrGVmJLQ+hU2zsnlEpsu9W1zLzTa10vrC0sAzQADBsV2Q+Vs27evkoFvG7c58NJ6gDFB/T3IKYGhzkyIaWQ2KmdCO9jIwBeo1q3MiLdN8v3jqcFI0cfH1MlutFhFT3XZSx/8J9SFu4ccef4pb3ny0yp4f+OT2tTSTLiju0n9IOKPTKQVXEt+yJQ=
+  on:
+    tags: true
+    repo: hmcts/nodejs-info-provider
+before_install:
+- yarn global add greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
