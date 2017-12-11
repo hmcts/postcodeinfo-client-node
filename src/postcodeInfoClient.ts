@@ -36,8 +36,7 @@ export class PostcodeInfoClient {
       simple: false,
       uri: `${this.apiUrl}/postcodes/${postcode}`
     })
-
-
+    
     return Promise.all([postcodeQueryPromise, postcodeInfoPromise])
       .then(([postcodeQuery, postcodeInfo]) => {
         if (postcodeQuery.statusCode >= 500 || postcodeInfo.statusCode >= 500) {
