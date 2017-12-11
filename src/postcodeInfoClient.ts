@@ -1,10 +1,14 @@
-import * as request from 'request-promise-native'
+import * as requestPromise from 'request-promise-native'
+import * as requestDefault from 'request'
 import { Address } from './address'
 import { Point } from './point'
 import { PostcodeInfoResponse } from './postcodeInfoResponse'
 
 export class PostcodeInfoClient {
   constructor (private readonly apiToken: string,
+               private readonly request: requestDefault.RequestAPI<requestPromise.RequestPromise,
+                 requestPromise.RequestPromiseOptions,
+                 requestDefault.RequiredUriUrl> = requestPromise,
                private readonly apiUrl: string = 'https://postcodeinfo.service.justice.gov.uk') {
   }
 
@@ -17,15 +21,17 @@ export class PostcodeInfoClient {
       Authorization: `Token ${this.apiToken}`
     }
 
-    const postcodeQueryPromise = request.get({
+    const postcodeQueryPromise = this.request.get({
       headers,
+      json: false,
       resolveWithFullResponse: true,
       simple: false,
       uri: `${this.apiUrl}/addresses/?postcode=${postcode}`
     })
 
-    const postcodeInfoPromise = request.get({
+    const postcodeInfoPromise = this.request.get({
       headers,
+      json: false,
       resolveWithFullResponse: true,
       simple: false,
       uri: `${this.apiUrl}/postcodes/${postcode}`
@@ -38,6 +44,8 @@ export class PostcodeInfoClient {
           throw new Error('Error with postcode service')
         } else if (postcodeQuery.statusCode === 404 || postcodeInfo.statusCode === 404) {
           return new PostcodeInfoResponse(false)
+        } else if (postcodeQuery.statusCode === 401 || postcodeInfo.statusCode === 401) {
+          throw new Error('Authentication failed')
         }
 
         const postcodeInfoBody = JSON.parse(postcodeInfo.body)
