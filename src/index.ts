@@ -1,0 +1,5 @@
+export { Address } from './address'
+export { LocalAuthority } from './localAuthority'
+export { Point } from './point'
+export { PostcodeInfoClient } from './postcodeInfoClient'
+export { PostcodeInfoResponse } from './postcodeInfoResponse'
