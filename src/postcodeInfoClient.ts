@@ -14,7 +14,7 @@ export class PostcodeInfoClient {
 
   public lookupPostcode (postcode: string): Promise<PostcodeInfoResponse> {
     if (!postcode) {
-      throw new Error('Missing required postcode')
+      return Promise.reject(new Error('Missing required postcode'))
     }
 
     const headers = {
@@ -36,7 +36,7 @@ export class PostcodeInfoClient {
       simple: false,
       uri: `${this.apiUrl}/postcodes/${postcode}`
     })
-    
+
     return Promise.all([postcodeQueryPromise, postcodeInfoPromise])
       .then(([postcodeQuery, postcodeInfo]) => {
         if (postcodeQuery.statusCode >= 500 || postcodeInfo.statusCode >= 500) {
@@ -52,8 +52,8 @@ export class PostcodeInfoClient {
 
         return new PostcodeInfoResponse(
           postcodeInfo.statusCode === 200,
-          postcodeInfoBody.latitude,
-          postcodeInfoBody.longitude,
+          postcodeInfoBody.centre.coordinates[1],
+          postcodeInfoBody.centre.coordinates[0],
           postcodeInfoBody.local_authority,
           postcodeInfoBody.country,
           postcodeQueryBody.map((address: any) => {
