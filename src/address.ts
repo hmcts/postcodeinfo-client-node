@@ -1,7 +1,6 @@
 import { Point } from './point'
 
 export class Address {
-
   constructor (public readonly uprn: string,
                public readonly organisationName: string,
                public readonly departmentName: string,
