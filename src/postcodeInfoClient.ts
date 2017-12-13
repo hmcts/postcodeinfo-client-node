@@ -1,5 +1,5 @@
-import * as requestPromise from 'request-promise-native'
 import * as requestDefault from 'request'
+import * as requestPromise from 'request-promise-native'
 import { Address } from './address'
 import { Point } from './point'
 import { PostcodeInfoResponse } from './postcodeInfoResponse'

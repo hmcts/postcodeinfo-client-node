@@ -1,5 +1,5 @@
-import { LocalAuthority } from './localAuthority'
 import { Address } from './address'
+import { LocalAuthority } from './localAuthority'
 
 export class PostcodeInfoResponse {
 
