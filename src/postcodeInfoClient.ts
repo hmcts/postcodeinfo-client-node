@@ -18,7 +18,7 @@ export class PostcodeInfoClient {
     }
 
     const postcodeQueryPromise = this.getUri(`/addresses/?postcode=${postcode}`)
-    const postcodeInfoPromise = this.getUri(`${this.apiUrl}/postcodes/${postcode}`)
+    const postcodeInfoPromise = this.getUri(`/postcodes/${postcode}`)
 
     return Promise.all([postcodeQueryPromise, postcodeInfoPromise])
       .then(([postcodeQuery, postcodeInfo]) => {
