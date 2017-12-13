@@ -17,25 +17,8 @@ export class PostcodeInfoClient {
       return Promise.reject(new Error('Missing required postcode'))
     }
 
-    const headers = {
-      Authorization: `Token ${this.apiToken}`
-    }
-
-    const postcodeQueryPromise = this.request.get({
-      headers,
-      json: false,
-      resolveWithFullResponse: true,
-      simple: false,
-      uri: `${this.apiUrl}/addresses/?postcode=${postcode}`
-    })
-
-    const postcodeInfoPromise = this.request.get({
-      headers,
-      json: false,
-      resolveWithFullResponse: true,
-      simple: false,
-      uri: `${this.apiUrl}/postcodes/${postcode}`
-    })
+    const postcodeQueryPromise = this.getUri(`/addresses/?postcode=${postcode}`)
+    const postcodeInfoPromise = this.getUri(`${this.apiUrl}/postcodes/${postcode}`)
 
     return Promise.all([postcodeQueryPromise, postcodeInfoPromise])
       .then(([postcodeQuery, postcodeInfo]) => {
@@ -79,6 +62,22 @@ export class PostcodeInfoClient {
           )
         )
       })
+  }
+
+  private getUri (path: string): Promise<any> {
+    return this.request.get({
+      headers: this.headers,
+      json: false,
+      resolveWithFullResponse: true,
+      simple: false,
+      uri: `${this.apiUrl}${path}`
+    })
+  }
+
+  private get headers (): object {
+    return {
+      Authorization: `Token ${this.apiToken}`
+    }
   }
 
 
