@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/postcodeinfo-client",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "MoJ postcode lookup client",
   "license": "MIT",
   "repository": "https://github.com/hmcts/postcodeinfo-client-node",
