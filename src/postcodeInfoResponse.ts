@@ -1,4 +1,5 @@
 import { Address } from './address'
+import { Country } from './country'
 import { LocalAuthority } from './localAuthority'
 
 export class PostcodeInfoResponse {
@@ -7,7 +8,7 @@ export class PostcodeInfoResponse {
                public readonly latitude?: number,
                public readonly longitude?: number,
                public readonly localAuthority?: LocalAuthority,
-               public readonly country?: string,
+               public readonly country?: Country,
                public readonly addresses?: Address[]) {
   }
 }
