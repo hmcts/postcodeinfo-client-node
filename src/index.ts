@@ -1,6 +1,6 @@
 export { Address } from './address'
-export { LocalAuthority } from './localAuthority'
 export { Country } from './country'
+export { LocalAuthority } from './localAuthority'
 export { Point } from './point'
 export { PostcodeInfoClient } from './postcodeInfoClient'
 export { PostcodeInfoResponse } from './postcodeInfoResponse'
